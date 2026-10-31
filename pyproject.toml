@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cosmemilton-sitef"
+version = "0.1.0"
+description = "Cliente Python assíncrono para CliSiTef com ponte nativa isolada"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary - license not yet selected"}
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sitef = ["py.typed", "data/*.json"]

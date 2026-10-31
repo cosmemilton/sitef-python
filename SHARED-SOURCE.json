@@ -1,0 +1,19 @@
+{
+  "canonicalRepository": "https://github.com/cosmemilton/sitef-node",
+  "canonicalCommit": "cb6a7be563be485195ef8fa0c4fac2e5bc65721d",
+  "bridgeProtocolVersion": 1,
+  "vendorBinariesIncluded": false,
+  "files": {
+    "docs/bridge-protocol.md": "b8989b7d606002a709aaa38dcd5559ebced28fdb34cb464ee32f1cff14b00b19",
+    "native/Cargo.lock": "bc91395bd19ad542e39b0df10036c83ad5e5e59629e641413aa55afd1817f0d0",
+    "native/Cargo.toml": "8f1066fad970a9a8a4570daf717cba52c0f06ebd67a98cbd1b072f00ce85caee",
+    "native/README.md": "3efe6e57195c9e096f63567487149010c32593736461ccedf2f447bcc399a8f2",
+    "native/src/main.rs": "4280602f50599e98317faa8fc6df30dd44b613ae488007f76c07bb83e8ab77df",
+    "native/tests/fixture.c": "d05bfb52c0ad69f8cb43f26fbebc25ba00929f60b8a5c35998f538ac60580c22",
+    "native/tests/fixture_tcp.c": "99a9227356978a6ce116a7bf415d15f06e827f1008069103f3b68a6a317632d1",
+    "native/tests/smoke.py": "b42bf1faccbb93f9b18dba315e401903c2d13fa340bf71d6710760d4d052b6a7",
+    "native/tests/smoke_tcp.py": "50409dced7c4ed5483ef28cc4c391666288395942357d43f514b65537f40a888",
+    "protocol/catalog.json": "39b0859434e8c9d5cb4fa4452456c86395ae473af7041d6ccc377fe25ded79ab",
+    "scripts/build-windows-x64.sh": "262b12d7a01944469dfb73c88d3fae8e8f78b668e6ffa0d16701f8062a290387"
+  }
+}
