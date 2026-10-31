@@ -8,6 +8,7 @@ class SitefError(Exception):
         self.code = code
         self.native_status = native_status
         self.uncertain = uncertain
+        self.result = None  # Explicit in-memory transaction result; never in repr/logs.
 
     def __repr__(self) -> str:
         return f"SitefError(code={self.code!r}, uncertain={self.uncertain!r})"

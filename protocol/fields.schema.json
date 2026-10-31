@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CliSiTef shared field semantics",
+  "type": "object",
+  "required": ["schemaVersion", "entries", "ranges", "rules", "coverage"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "metadata": {"type": "object"},
+    "entries": {
+      "type": "object",
+      "propertyNames": {"pattern": "^-?[0-9]+$"},
+      "additionalProperties": {"$ref": "#/$defs/entry"}
+    },
+    "ranges": {
+      "type": "array",
+      "items": {
+        "allOf": [{"$ref": "#/$defs/entry"}],
+        "required": ["from", "to", "contexts"],
+        "properties": {"from": {"type": "integer"}, "to": {"type": "integer"}}
+      }
+    },
+    "rules": {"type": "object"},
+    "coverage": {"type": "object"}
+  },
+  "$defs": {
+    "hook": {
+      "enum": ["printReceipt", "storeReceipt", "lockResources", "unlockResources", "captureSignature", "resolveField", "resolveApplicationData", "onDiagnostic", "validateTransaction", "paymentData", "acceptFallback", "resolveConfirmationNetwork"]
+    },
+    "entry": {
+      "type": "object",
+      "required": ["name", "description", "dataType", "action"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "dataType": {"enum": ["text", "integer", "decimal", "date", "time", "datetime", "enum", "receipt", "structured"]},
+        "format": {"type": "object", "required": ["kind"], "properties": {"kind": {"type": "string"}}},
+        "choices": {"type": "object", "additionalProperties": {"type": "string"}},
+        "sensitive": {"type": "boolean"},
+        "contexts": {"type": "array", "items": {"type": "string"}},
+        "resolverRequired": {"type": "boolean"},
+        "action": {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {"kind": {"type": "string"}, "requiredHook": {"$ref": "#/$defs/hook"}, "deferredHook": {"$ref": "#/$defs/hook"}}
+        },
+        "origin": {"type": "object"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

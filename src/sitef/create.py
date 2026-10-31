@@ -10,6 +10,8 @@ from .client import SitefClient
 from .errors import SitefError
 from .journal import FileJournal
 from .models import Configuration, ExchangeObserver, InteractionHandler
+from .fields import FieldHooks
+from typing import Mapping
 from .transport import BridgeTransport
 
 
@@ -22,7 +24,9 @@ async def create_sitef(*, bridge_executable: str | os.PathLike[str],
                        native_encoding: str = "windows-1252", timeout: float = 120.0,
                        max_frame_bytes: int = 2 * 1024 * 1024,
                        buffer_size: int = 20000, max_steps: int = 100000,
-                       test_mode: bool = False, bridge_args: Sequence[str] = ()) -> SitefClient:
+                       test_mode: bool = False, bridge_args: Sequence[str] = (), hooks: FieldHooks | None = None,
+                       receipt_storage: str = "persist", monetary_formats: Mapping[int, str] | None = None,
+                       confirmation_network_field: int | None = None) -> SitefClient:
     """Open -> load -> validate -> acquire journal -> configure.
 
     Journal identity is SHA256(UTF8(storeId + NUL + terminalId)), matching the
@@ -56,7 +60,8 @@ async def create_sitef(*, bridge_executable: str | os.PathLike[str],
             configuration=configuration, transport=transport,
             journal=FileJournal(state_path / (terminal_key + ".journal.json")),
             interaction=interaction, on_exchange=on_exchange, native_encoding=native_encoding,
-            buffer_size=buffer_size, max_steps=max_steps)
+            buffer_size=buffer_size, max_steps=max_steps, hooks=hooks, receipt_storage=receipt_storage,
+            monetary_formats=monetary_formats, confirmation_network_field=confirmation_network_field)
     except BaseException:
         await transport.close()
         raise

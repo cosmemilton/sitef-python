@@ -14,7 +14,11 @@ from .errors import SitefError
 
 STATES = {"started", "awaiting-finalization", "finalizing", "finalized-local", "ended", "uncertain"}
 RECORD_KEYS = {"version", "id", "storeId", "terminalId", "functionId", "entryPoint", "fiscalDocument",
-               "fiscalDate", "fiscalTime", "state", "decision", "status", "updatedAt", "finalizationParameters"}
+               "fiscalDate", "fiscalTime", "state", "updatedAt", "payments"}
+PAYMENT_KEYS = {"id", "functionId", "entryPoint", "fiscalDocument", "fiscalDate", "fiscalTime", "state",
+                "decision", "status", "paymentIndex", "network", "finalizationParameters", "receipts",
+                "confirmationAllowed", "assessmentIssues", "finalizationPayload"}
+PAYMENT_KEYS |= {"signatureRequired", "signatureCaptured", "legacyReceiptStateUnknown"}
 
 
 def utc_now() -> str:
@@ -29,7 +33,7 @@ class Journal(Protocol):
 
 
 def validate_record(record: Any) -> dict[str, Any]:
-    if not isinstance(record, dict) or type(record.get("version")) is not int or record["version"] != 1:
+    if not isinstance(record, dict) or type(record.get("version")) is not int or record["version"] not in {1, 2}:
         raise SitefError("JOURNAL_INVALID", "Versão de journal inválida.")
     for key in ["id", "storeId", "terminalId", "fiscalDocument", "fiscalDate", "fiscalTime", "updatedAt"]:
         if not isinstance(record.get(key), str) or not record[key] or "\0" in record[key]:
@@ -38,20 +42,79 @@ def validate_record(record: Any) -> dict[str, Any]:
             or not re.fullmatch(r"[0-9]{8}", record["fiscalDate"])
             or not re.fullmatch(r"[0-9]{6}", record["fiscalTime"])):
         raise SitefError("JOURNAL_INVALID", "Journal com identidade ou estado inválido.")
-    if "decision" in record and (type(record["decision"]) is not int or record["decision"] not in {0, 1}):
-        raise SitefError("JOURNAL_INVALID", "Decisão persistida inválida.")
-    if "status" in record and type(record["status"]) is not int:
-        raise SitefError("JOURNAL_INVALID", "Retorno persistido inválido.")
-    if "finalizationParameters" in record and (not isinstance(record["finalizationParameters"], str)
-                                                or "\0" in record["finalizationParameters"]):
-        raise SitefError("JOURNAL_INVALID", "Escopo persistido inválido.")
-    return dict(record)
+    value = dict(record)
+    if value["version"] == 1:
+        allowed = (RECORD_KEYS - {"payments"}) | {"decision", "status", "finalizationParameters"}
+        if set(value) - allowed:
+            raise SitefError("JOURNAL_INVALID", "Journal contém dados não autorizados.")
+        payment = {key: entry for key, entry in value.items() if key in PAYMENT_KEYS}
+        payment.update(legacyReceiptStateUnknown=True, confirmationAllowed=False)
+        parameters = payment.get("finalizationParameters", "")
+        for name, target in [("NumeroPagamentoCupom", "paymentIndex"), ("RedeConfirmacao", "network")]:
+            match = re.search(r"\{" + name + r"=([0-9]+)\}", parameters)
+            if match:
+                payment[target] = match[1]
+        value = {key: entry for key, entry in value.items() if key in RECORD_KEYS}
+        value.update(version=2, payments=[payment])
+    if set(value) - RECORD_KEYS or not isinstance(value.get("payments"), list) or not value["payments"]:
+        raise SitefError("JOURNAL_INVALID", "Journal V2 sem pagamentos válidos.")
+    ids = set()
+    for payment in value["payments"]:
+        if not isinstance(payment, dict) or set(payment) - PAYMENT_KEYS:
+            raise SitefError("JOURNAL_INVALID", "Metadados de pagamento não autorizados.")
+        for key in ("id", "fiscalDocument", "fiscalDate", "fiscalTime"):
+            if not isinstance(payment.get(key), str) or not payment[key] or "\0" in payment[key]:
+                raise SitefError("JOURNAL_INVALID", "Identidade de pagamento inválida.")
+        if (payment["id"] in ids or payment.get("state") not in STATES
+                or type(payment.get("functionId")) is not int
+                or not re.fullmatch(r"[0-9]{8}", payment["fiscalDate"])
+                or not re.fullmatch(r"[0-9]{6}", payment["fiscalTime"])):
+            raise SitefError("JOURNAL_INVALID", "Pagamento duplicado ou inválido.")
+        ids.add(payment["id"])
+        if "confirmationAllowed" in payment and type(payment["confirmationAllowed"]) is not bool:
+            raise SitefError("JOURNAL_INVALID", "Avaliação de confirmação inválida.")
+        if any(key in payment and type(payment[key]) is not bool for key in ("signatureRequired", "signatureCaptured", "legacyReceiptStateUnknown")):
+            raise SitefError("JOURNAL_INVALID", "Metadados de assinatura inválidos.")
+        if "assessmentIssues" in payment and (not isinstance(payment["assessmentIssues"], list) or any(not isinstance(code, str) or not re.fullmatch(r"[A-Z0-9_]+", code) for code in payment["assessmentIssues"])):
+            raise SitefError("JOURNAL_INVALID", "Códigos de avaliação inválidos.")
+        if "decision" in payment and (type(payment["decision"]) is not int or payment["decision"] not in {0, 1}):
+            raise SitefError("JOURNAL_INVALID", "Decisão persistida inválida.")
+        if "status" in payment and type(payment["status"]) is not int:
+            raise SitefError("JOURNAL_INVALID", "Retorno persistido inválido.")
+        for key in ("paymentIndex", "network"):
+            if key in payment and (not isinstance(payment[key], str) or not re.fullmatch(r"[0-9]+", payment[key])):
+                raise SitefError("JOURNAL_INVALID", "Seletor persistido inválido.")
+        if "finalizationParameters" in payment and (not isinstance(payment["finalizationParameters"], str) or "\0" in payment["finalizationParameters"]):
+            raise SitefError("JOURNAL_INVALID", "Escopo persistido inválido.")
+        if "finalizationPayload" in payment:
+            payload = payment["finalizationPayload"]
+            if (not isinstance(payload, dict) or set(payload) != {"id", "hash"}
+                    or not isinstance(payload["id"], str) or not payload["id"] or "\0" in payload["id"]
+                    or not isinstance(payload["hash"], str) or not re.fullmatch(r"[0-9a-f]{64}", payload["hash"])):
+                raise SitefError("JOURNAL_INVALID", "Metadados de payload de finalização inválidos.")
+        receipts = payment.get("receipts", [])
+        if not isinstance(receipts, list):
+            raise SitefError("JOURNAL_INVALID", "Metadados de recibos inválidos.")
+        receipt_ids = set()
+        for receipt in receipts:
+            if (not isinstance(receipt, dict) or set(receipt) != {"id", "fieldType", "type", "timing", "hash", "printed"}
+                    or not isinstance(receipt["id"], str) or "\0" in receipt["id"] or receipt["id"] in receipt_ids
+                    or not re.fullmatch(re.escape(payment["id"]) + r":(?:121|122):[1-9][0-9]*", receipt["id"])
+                    or receipt["fieldType"] not in {121, 122}
+                    or receipt["timing"] not in {"immediate", "deferred"}
+                    or not isinstance(receipt["hash"], str) or not re.fullmatch(r"[0-9a-f]{64}", receipt["hash"])
+                    or type(receipt["printed"]) is not bool or (receipt["type"] is not None and not isinstance(receipt["type"], str))):
+                raise SitefError("JOURNAL_INVALID", "Journal contém corpo ou metadados inválidos de recibo.")
+            receipt_ids.add(receipt["id"])
+    if value["id"] != value["payments"][0]["id"]:
+        raise SitefError("JOURNAL_INVALID", "Identidade do grupo diverge do primeiro pagamento.")
+    return value
 
 
 class FileJournal:
     """Use one stable local path per (store, terminal); never auto-delete stale locks.
 
-    Record keys intentionally match the Node client's version 1 journal.
+    Version 1 single-payment records are migrated in memory to version 2.
     Unknown record versions are rejected instead of being overwritten.
     """
 
@@ -115,6 +178,8 @@ class FileJournal:
             if self._fd is None:
                 raise SitefError("JOURNAL_UNLOCKED", "Journal sem exclusividade.")
             checked = validate_record(dict(record))
+            if any(re.search(r"\{NFPAG\s*=", p.get("finalizationParameters", ""), re.I) for p in checked["payments"]):
+                raise SitefError("LEGACY_PAYLOAD_MIGRATION_REQUIRED", "O payload NFPAG deve ficar no armazenamento externo da aplicação.")
             if set(checked) - RECORD_KEYS:
                 raise SitefError("JOURNAL_INVALID", "Campos de journal não autorizados; não grave buffers financeiros.")
             payload = json.dumps(checked, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")

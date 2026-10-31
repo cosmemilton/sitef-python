@@ -49,7 +49,7 @@ class ClientTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(SitefError) as close_error:
             await client.close()
         self.assertEqual(close_error.exception.code, "FINALIZATION_REQUIRED")
-        final = await client.finalize(True, "{NumeroPagamentoCupom=2}{Future=1}")
+        final = await client.finalize(True, "{Future=1}")
         self.assertEqual(final, {"returned": True, "remoteConfirmation": "not-reported"})
         self.assertEqual(client.recovery["fiscalDocument"], INPUT.fiscal_document)
         self.assertNotIn("Ação", (self.directory / "terminal.journal.json").read_text())
@@ -87,7 +87,7 @@ class ClientTests(unittest.IsolatedAsyncioTestCase):
             if request.command == 23:
                 await asyncio.Event().wait()
         client = await self.connect(mode="poll", on_exchange=observer)
-        result = await asyncio.wait_for(client.transact(INPUT, requires_finalization=False), 2)
+        result = await asyncio.wait_for(client.transact(replace(INPUT, function_id=111)), 2)
         self.assertEqual(result.status, 0)
         self.assertEqual(client.state, "idle")
 
@@ -110,7 +110,7 @@ class ClientTests(unittest.IsolatedAsyncioTestCase):
     async def test_finalization_crash_recovery_keeps_decision_scope_and_original_identity(self):
         client = await self.connect(mode="finish-crash")
         sale = await client.transact(INPUT, requires_finalization=True)
-        scope = "{NumeroPagamentoCupom=2}{Future=1}"
+        scope = "{Future=1}"
         with self.assertRaises(SitefError) as caught:
             await client.finalize(True, scope)
         self.assertEqual(caught.exception.code, "FINALIZATION_UNCERTAIN")
@@ -146,8 +146,8 @@ class ClientTests(unittest.IsolatedAsyncioTestCase):
                 with self.assertRaises(SitefError):
                     await client.transact(invalid, requires_finalization=True)
                 self.assertIsNone(client.recovery)
-        with self.assertRaises(TypeError):
-            await client.transact(INPUT)
+        result = await client.transact(INPUT)
+        self.assertTrue(result.requires_finalization)
 
     async def test_external_event_can_abort_before_start(self):
         event = asyncio.Event()

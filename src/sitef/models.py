@@ -58,6 +58,9 @@ class NativeExchange:
     buffer_base64: str | None = field(default=None, repr=False)
     decoding_error: bool = False
     raw: Mapping[str, Any] = field(default_factory=dict, repr=False, compare=False)
+    field_spec: Mapping[str, Any] = field(default_factory=dict, repr=False, compare=False)
+    typed_value: Any = field(default=None, repr=False, compare=False)
+    field_context: Mapping[str, Any] = field(default_factory=dict, repr=False, compare=False)
 
     @classmethod
     def from_native(cls, value: Mapping[str, Any], kind: str) -> NativeExchange:
@@ -78,11 +81,13 @@ class UiResponse:
     buffer: str = field(default="", repr=False)
     continue_flag: int = 0
     buffer_base64: str | None = field(default=None, repr=False)
+    confirmed: bool | None = None
 
 
 @dataclass(frozen=True)
 class InteractionContext:
     cancel_event: asyncio.Event = field(repr=False)
+    fields: Mapping[str, Any] = field(default_factory=dict, repr=False)
 
     @property
     def cancelled(self) -> bool:
@@ -95,6 +100,19 @@ class DataField:
     buffer: str = field(repr=False)
     buffer_base64: str | None = field(default=None, repr=False)
     decoding_error: bool = False
+    value: Any = field(default=None, repr=False)
+    data_type: str = "text"
+
+
+@dataclass(frozen=True)
+class Receipt:
+    id: str
+    field_type: int
+    receipt_type: str | None
+    timing: str
+    body: str = field(repr=False)
+    body_base64: str | None = field(default=None, repr=False)
+    hash: str = ""
 
 
 @dataclass(frozen=True)
@@ -103,6 +121,9 @@ class TransactionResult:
     transaction_id: str
     requires_finalization: bool
     fields: tuple[DataField, ...] = field(default=(), repr=False)
+    context: Mapping[str, Any] = field(default_factory=dict, repr=False)
+    payment_id: str | None = None
+    receipts: tuple[Receipt, ...] = field(default=(), repr=False)
 
 
 InteractionHandler = Callable[[NativeExchange, InteractionContext], Awaitable[UiResponse]]

@@ -1,135 +1,111 @@
 # sitef-python
 
-Cliente Python 3.10+ assíncrono para integrar aplicações à CliSiTef por uma ponte Rust executada em processo separado. A biblioteca Python usa apenas a biblioteca padrão em runtime. Este projeto está em desenvolvimento e **não está homologado**.
+SDK 0.2.0. Cliente Python 3.10+ assíncrono para CliSiTef, com ponte Rust em processo separado. Produção **Windows x64**. Biblioteca CliSiTef64I.dll e dependências oficiais fornecidas pelo integrador; DLL, INI, PDF, chaves e dados operacionais não acompanham o pacote. **Ainda não homologado financeiramente.**
 
-O runtime de produção é **Windows x64**. A aplicação fornece o executável `sitef-bridge.exe`, a DLL de interface **CliSiTef64I.dll** e as dependências oficiais. DLLs, PDFs, INI, arquivos de chave, traces e dados de operação do fornecedor não acompanham o pacote. A ponte compartilhada é código próprio e usa stdin/stdout, sem shell nem porta de rede.
+O SDK oferece processamento semântico dos campos documentados, callback de interação e journal por pagamento. Ações que dependem de hardware ou regras do PDV exigem hooks explícitos. [Estado da implementação e limites](docs/implementation-status.md).
 
-O catálogo comum contém os códigos disponíveis no projeto Node. Sua cobertura é declarada em `coverage`: há 444 entradas individuais de TipoCampo na tabela VRS-258, das quais somente 40 têm aliases nessa tabela; `fieldIds` possui 64 aliases ao incluir outros contextos. Os IDs de 124 funções dessa tabela estão catalogados, com sete funções adicionais de carteiras, mas seus fluxos não estão implementados/homologados individualmente. [Estado e limites](docs/implementation-status.md).
-
-## Instalação e ponte
+## Instalação
 
 ```powershell
 python -m pip install .
-```
-
-O nome da distribuição é `cosmemilton-sitef`; o import é `sitef`. Ainda não há publicação em PyPI. A construção local usa setuptools e wheel, sem dependências adicionais de runtime.
-
-A ponte é construída a partir do snapshot de código próprio em `native/`, com a toolchain Windows x64 apropriada:
-
-```powershell
 cargo build --release --target x86_64-pc-windows-msvc --manifest-path native/Cargo.toml
 ```
 
-Instale o executável resultante em uma pasta controlada pela aplicação. O caminho absoluto da DLL é passado ao método `load`. O INI e os arquivos oficiais permanecem na instalação do integrador, conforme o fornecedor. `working_directory` afeta somente o processo auxiliar. A referência de protocolo continua sendo os PDFs x86 auditados, VRS-258 e Carteiras Digitais 1.43; os PDFs do kit x64 não foram usados.
+Distribuição `cosmemilton-sitef`, import `sitef`, sem dependências de runtime além da biblioteca padrão. Ainda não publicado no PyPI. Instale o executável em pasta controlada pela aplicação e mantenha o runtime oficial separado.
 
-## Operação com callback
-
-Os nomes públicos Python usam `snake_case`; os argumentos enviados à ponte são mapeados para `camelCase`, preservando os valores originais. Valores monetários são **strings**, como `"12,34"`; a string vazia atende funções sem valor previamente definido. As strings de parâmetros adicionais são repassadas integralmente, sem whitelist de nomes.
+## Sessão e interação
 
 ```python
 from pathlib import Path
-from sitef import (
-    Configuration, TransactionInput, UiResponse, create_sitef,
-)
+from sitef import Configuration, FieldHooks, TransactionInput, UiResponse, create_sitef
 
-async def iniciar_sessao(interagir_com_usuario, imprimir_ou_observar):
+async def abrir(interagir, guardar, recuperar, imprimir):
     return await create_sitef(
         bridge_executable=Path(r"C:\Integracao\sitef-bridge.exe"),
         bridge_directory=Path(r"C:\Integracao"),
         library_path=Path(r"C:\Fornecedor\CliSiTef64I.dll"),
         state_directory=Path(r"C:\DadosPDV\sitef"),
-        configuration=Configuration(
-            server="127.0.0.1", store_id="00000000", terminal_id="AA123456",
-            additional_parameters="[MultiplosCupons=1]",
-        ),
-        interaction=interagir_com_usuario,
-        on_exchange=imprimir_ou_observar,
-        native_encoding="windows-1252",
-        timeout=120,
+        configuration=Configuration("127.0.0.1", "00000000", "AA123456"),
+        interaction=interagir,
+        hooks=FieldHooks(store_receipt=guardar, load_receipt=recuperar,
+                         print_receipt=imprimir),
     )
 
-async def conduzir_venda(client, dados_fiscais, operador):
-    return await client.transact(
-        TransactionInput(
-            function_id=0, amount="12,34",
-            fiscal_document=dados_fiscais.numero,
-            fiscal_date=dados_fiscais.data_aaaammdd,
-            fiscal_time=dados_fiscais.hora_hhmmss,
-            operator=operador,
-            additional_parameters="{ItemMenuIdentificado=1}",
-        ),
-        requires_finalization=True,
-    )
+async def vender(client, numero, data, hora, operador):
+    return await client.transact(TransactionInput(0, "12,34", numero, data, hora, operador))
 ```
 
-`create_sitef` abre o helper, carrega a biblioteca externa, valida a versão do protocolo e a ABI Windows x64 e configura a sessão. Em caso de falha, encerra o helper. O nome do journal é `SHA256(UTF8(storeId + NUL + terminalId)) + ".journal.json"`, compartilhando a chave dos clientes Node/PHP quando usam o mesmo diretório de estado. Mantenha somente um dono do terminal por vez. `BridgeTransport`, `FileJournal` e `SitefClient.connect` permanecem disponíveis para integrações avançadas e transportes próprios.
+O callback é `async def handler(request, context) -> UiResponse`. Recebe comando, campo, limites, texto, bytes Base64 e contexto semântico em request.field_spec, request.typed_value e context.fields. Datas completas tornam-se tipos de data/hora; datas parciais mantêm componentes e decimais usam Decimal. Serialize esses tipos explicitamente se enviá-los a outro processo.
 
-Depois do retorno, a aplicação verifica `result.status` e o estado fiscal. Quando houver `awaiting-finalization`, ela toma a decisão explícita de confirmar ou desfazer:
+Retorne UiResponse(buffer="...") após coleta ou UiResponse(continue_flag=-1) para cancelar. Controle continue_flag=10000 exige confirmed=True para dado pré-coletado confirmado pelo operador, inclusive em comando desconhecido. Texto e Base64 da resposta devem corresponder byte a byte na codificação nativa. Menus anunciados como Mc exigem uma etapa separada de confirmação e UiResponse(buffer="1", confirmed=True). Comandos desconhecidos chegam integralmente ao callback. Comando zero preserva os bytes; on_exchange não substitui hooks obrigatórios. Comando23 continua sem aguardar o observador, preservando resposta do periférico.
+
+Comando29 usa resolve_application_data quando disponível ou o callback da aplicação; esse pedido é dado do PDV, sem convertê-lo automaticamente em entrada humana. QR50/51/52 atualiza a tela sem aguardar confirmação. Para nosso modal, o renderer deve integrar **@cosmemilton/sitef-ui e cosmemilton-ui obrigatório** pelo canal privado da aplicação. O cliente Python não inclui navegador nem transporte de frontend.
+
+Hooks aceitam funções síncronas ou assíncronas. Assinatura usual `(request, context)`, incluindo Receipt em persistência/impressão. Ações concluídas precisam retornar **True**; None não comprova sucesso. FieldHooks oferece:
+
+- store_receipt, load_receipt, print_receipt;
+- lock_resources, unlock_resources, capture_signature;
+- resolve_field, resolve_application_data, on_diagnostic;
+- accept_fallback, validate_transaction, resolve_confirmation_network;
+- payment_data, store_finalization_payload, load_finalization_payload, attest_legacy_obligations.
+
+## Comprovantes e ações obrigatórias
+
+Padrão receipt_storage="persist": a aplicação guarda externamente cada recibo por ID estável antes de continuar. Administrativos/Corban imediatos exigem também print_receipt=True antes de continuar. Diferidos são impressos antes de finalize(True), seguidos de assinatura em papel5074. O journal guarda hash/reconhecimento, nunca corpo. load_receipt(metadata,payment) retorna Receipt ou {"body":texto,"bodyBase64":bytes_opcionais}; hash divergente impede confirmar, sem impedir desfazer. receipt_storage="explicit-return" entrega result.receipts e transfere a responsabilidade de armazenamento ao integrador, mas ainda exige impressão confirmada e recuperação externa após crash.
+
+Restrições1042/1043/1044 são agrupadas por medicamento1011: violação numérica comprovada bloqueia confirmação, e unidade/escopo ausente exige validate_transaction com fields/productConstraints.1122/1123 validam quantidade e comprimento de código quando inequívocos; limites ambíguos exigem o mesmo hook. Carnê16/17 requer indicação2361/2363 ou accept_fallback=True. PBM4039 exige avaliação explícita quando sinaliza erro; diagnóstico4100 exige on_diagnostic. Bloqueio de recursos exige desbloqueio disponível e cleanup. Evento5010 é notificação; obrigação explícita de assinatura em papel é5074. Aprovação bancária já recebida com ação incompleta permanece pendente com confirmação bloqueada e possibilidade de desfazimento.
+
+## Pagamentos e finalização
+
+requires_finalization é inferido do catálogo. Contradizer função conhecida causa FINALIZATION_POLICY_MISMATCH; função ambígua/desconhecida exige booleano explícito antes de FFI. Valores monetários são strings exatas, como "12,34", nunca float.
 
 ```python
-await client.finalize(confirm=decisao_do_sistema_fiscal)
+primeiro = await client.transact(dados_do_primeiro_pagamento)
+segundo = await client.append_payment(dados_do_segundo_pagamento)
+await client.finalize(True)  # decisão explícita do sistema fiscal
+# Ou, se o índice161 foi recebido:
+# await client.finalize_payment(True, primeiro.payment_id)
 await client.close()
 ```
 
-`finalize` invoca uma função nativa `void`. Seu retorno `{"returned": True, "remoteConfirmation": "not-reported"}` indica somente que a chamada local retornou. Sem escopo adicional, a finalização alcança todos os pagamentos do mesmo cupom/data. É possível fornecer `additional_parameters="{NumeroPagamentoCupom=2}"` ou outros parâmetros documentados, preservados na recuperação.
+Append é explícito. Cupom diferente na mesma data é bloqueado enquanto há pendência; virada de data permite novo cupom. Finalização conjunta particiona por cupom/data, com hora original. finalize_payment exige índice161 único. finalize_network exige confirmation_network_field=131|158 ou resolver; um único campo131/158 não prova RedeConfirmacao. Seletores livres NumeroPagamentoCupom/RedeConfirmacao/NumeroPagamentoNFPAG/NFPAG são recusados em favor das APIs tipadas.
 
-**`requires_finalization` é obrigatório em cada operação.** Use a política da modalidade: pagamentos podem exigir `True`, enquanto consultas e testes geralmente usam `False`. O pacote não deduz essa decisão a partir do nome ou do ID da função. Nenhuma modalidade é repetida automaticamente.
+finalize_with_payments(confirm,payment_id,methods,total_amount) recebe PaymentMethod(tipo,valor,data={...}), valida730/731/732 e soma exata. methods=None usa payment_data(request,context). O índiceNFPAG escolhe quem recebe os dados; finaliza **todos os pagamentos do cupom/data**. Payload pode conter cheque: store_finalization_payload({id,parameters,hash},context) deve persistir externamente e retornar True. load_finalization_payload({id,hash},context) devolve a string exata; hash/escopo são verificados antes da recuperação. ID13 restringe redes e não é emitido; chequeNFPAG usa prefixos diferentes do comando31. Delimitadores sem escape documentado são recusados.
 
-O callback é `async def handler(request, context) -> UiResponse`. Ele recebe comando, tipo de campo, mínimo/máximo, buffer, bytes em Base64, indicador de erro de decodificação e a resposta bruta da ponte. `context.cancelled` e `context.cancel_event` permitem cancelar uma tela pendente. Retorne `UiResponse(buffer="...")` após coleta ou `UiResponse(continue_flag=-1)` para solicitar cancelamento nativo. Todos os códigos numéricos desconhecidos continuam disponíveis ao integrador.
+FinalizaFuncao é void: {"returned":True,"remoteConfirmation":"not-reported"} comprova somente retorno local, sem comprovar confirmação remota.
 
-O comando `0` passa pelo observador assíncrono `on_exchange`; a sessão preserva sua sequência e ecoa os mesmos bytes. Use esse observador para processar/imprimir comprovantes quando a modalidade exigir impressão imediata. Uma falha de impressão deve interromper o fluxo pelo cancelamento; somente guardar os campos 121/122 não cumpre essa obrigação. O comando `23` continua imediatamente e seu observador é disparado sem bloquear o periférico. Os callbacks precisam cooperar com o cancelamento e não bloquear o event loop.
+## Contexto, consultas e administração
 
-## Interface própria ou modal compartilhado
-
-Uma aplicação Python pode implementar suas telas no callback. Para usar o nosso modal, o renderer da aplicação integra **`@cosmemilton/sitef-ui` e sua dependência obrigatória `cosmemilton-ui`**, por um canal privado da aplicação. A biblioteca Python não importa componentes JavaScript e não inclui um navegador ou servidor HTTP.
-
-O backend envia o pedido de interação ao renderer e aguarda a resposta correlacionada. O renderer encaminha `buffer` e `continueFlag`, além de cancelamentos, para o backend. Valide origem, identidade da operação e formato das mensagens no canal da aplicação. Envie ao renderer somente os dados necessários à tela; buffers de comprovante, cartão e dados de recuperação permanecem sob controle do backend. O pacote não fornece esse transporte de frontend nem declara um modal Python pronto. O projeto Node fornece o controller e a referência de renderer para esse fluxo.
-
-O comando `29` exige dados da aplicação, sem converter automaticamente a solicitação em digitação humana. Os comandos QR `50`, `51` e `52` atualizam a tela enquanto o laço continua; não aguardam confirmação de uma pessoa. Comando desconhecido exige tratamento explícito do callback. A documentação de produtos continua necessária para interpretar o tipo de campo.
-
-## Cancelamento, falhas e recuperação
-
-Use `client.cancel()` ou forneça `cancel_event=asyncio.Event()` a `transact`. A sessão interrompe a espera de callback e envia `continueFlag=-1`, conduzindo o laço até retorno terminal. Abortar uma Task com `Task.cancel()`, ocorrer timeout, encerrar o processo ou fechar uma tela não comprova cancelamento financeiro; nesses casos o journal pode ficar em `uncertain`.
-
-O journal é gravado antes da primeira chamada financeira, com exclusividade por arquivo, escrita temporária, `fsync` e substituição atômica. Reutilize o mesmo caminho local persistente por loja/terminal. Ele armazena identidade, estado, decisão e escopo de finalização, sem registrar buffers de coleta ou comprovante. Não use a string de finalização para gravar dados de cartão ou senhas. Um lock deixado após crash permanece bloqueando o terminal até a aplicação/operador conferir o processo e reconciliar a operação; o SDK nunca remove locks antigos automaticamente.
-
-Ao reconectar, uma operação sem estado terminal bloqueia novas transações. Consulte `client.recovery`, `pendingCount` e, quando necessário, as funções 130/131 no fluxo de recuperação definido pela aplicação. O cliente permite consultas diretas enquanto está incerto; iniciar uma nova função iterativa nesse estado exige uma estratégia de reconciliação externa. Após a conferência:
+FieldProcessor carrega os JSON comuns de536 campos e131 funções. Tipos compartilhando número são resolvidos pelo contexto. Campo2355 define formato da próxima coleta;2470 precisão da próxima30/34;1121/1126 precisão de preço/quantidade.109/137/138 preservam texto sem inferir unidade. Para aritmética use monetary_formats={137:"minor-units"} ou "decimal-comma", ou resolve_field retornando {"unscaled":"1234","scale":2}. Sem escala explícita, monetary_value bloqueia aritmética.
 
 ```python
-pending = await client.call_native("pendingCount", {
-    "fiscalDate": registro["fiscalDate"],
-    "fiscalDocument": registro["fiscalDocument"],
-})
-# A decisão pertence à aplicação, após conciliação fiscal/SiTef.
-await client.finalize_recovery(decisao_confirmada, registro["id"])
+resultado = await client.run_function(111)  # administrativa, dados fiscais vazios
+pendencias = await client.query_pending_transactions()
+especificas = await client.query_pending_transactions(
+    fiscal_document="123", fiscal_date="20261030",
+)
 ```
 
-A retomada preserva a decisão e o escopo já persistidos e recusa sua troca. Uma falha de transporte não reinicia o helper nem reenfileira a operação financeira. Se o helper precisar ser encerrado à força em `close`, o erro `BRIDGE_CLOSE_TIMEOUT` mantém a exclusividade do journal; confira o processo antes de tentar liberar o terminal.
+Consultas130/131 e funções administrativas não substituem o journal financeiro. Consulta agrupa160/161/163/164/211/1319 em ordem e verifica210. Valor de pendência permanece texto exato.
 
-## API auxiliar e limites
+## Cancelamento e recuperação
 
-`client.call_native(method, params)` chama somente o contrato tipado implementado na ponte; ela não oferece FFI arbitrária. Os parâmetros desse escape hatch usam os nomes **camelCase do protocolo**, por exemplo `pendingCount`, `pinpadMessage`, `readPasswordDirect`. Rotinas que iniciam um laço usam `NativeStart` em `transact`; a identidade de `startBanking` é sempre a identidade fiscal registrada pela sessão. `validate_barcode` também pode ser usado durante coletas 31/35.
+Use client.cancel() ou cancel_event=asyncio.Event(). A sessão cancela a espera de interação, envia continueFlag=-1 e conduz o laço ao retorno terminal. Task.cancel(), timeout e fim do helper não comprovam cancelamento financeiro; podem deixar estado incerto. Não há replay/retry financeiro automático.
 
-`catalog()` retorna uma cópia do JSON comum; `command_info()` oferece metadados de comando. `describe_return()` cobre os mapas genéricos de configuração, transação e leitura segura, conservando o código original. Nos demais contextos, devolve `kind="raw"`: contagens, presença, teclas e confirmações do pinpad exigem a interpretação específica da rotina. Não trate qualquer retorno positivo como recusa de pagamento.
+JournalV2 exclusivo por loja/terminal usa temporário, fsync e substituição atômica. Chave de arquivo SHA256(UTF8(storeId + NUL + terminalId)), compartilhável com Node/PHP no mesmo diretório. Todo o plano fica durável antes da primeira finalização; recuperação conserva decisão/escopo, sem repetir partições já finalizadas. V1 é migrado com legacyReceiptStateUnknown=True: confirmar exige attest_legacy_obligations(payment,context)=True certificando recibos, assinatura e obrigações comerciais; desfazer continua permitido. Corpo NFPAG legado só é removido após armazenamento externo confirmado.
 
-O buffer nativo aceita 20.000 a 1.048.576 bytes, e o frame IPC aceita até 2 MiB. Texto e Base64 da mesma resposta ocupam o frame juntos; por isso um buffer de 1 MiB não garante que sua resposta completa caiba no frame. O padrão de 20.000 bytes evita esse extremo. Resposta excessiva ou malformada encerra o canal e exige reconciliação. Comprimentos de campo usam bytes da codificação nativa; NUL interno e perda na codificação de entrada são rejeitados. O encoding do cliente deve coincidir com `transport.load`.
+Após reconectar, client.recovery e query_pending_transactions permitem conciliação. Depois da conferência fiscal/SiTef use finalize_recovery(decisao,registro["id"]). Plano seletivo preserva irmãos pendentes. Sem plano anterior, a decisão depende da aplicação. Locks antigos não são removidos automaticamente: confira processo/operação antes de liberar. BRIDGE_CLOSE_TIMEOUT preserva exclusividade se o helper não encerra normalmente.
 
-## Testes
+## Auxiliares e validação
+
+call_native(method,params) oferece somente métodos implementados na ponte, com nomes camelCase do protocolo, sem FFI arbitrária. Interativas usam NativeStart; identidade startBanking vem da sessão e continua obrigatória. Leitores nativos não financeiros aceitam identidade fiscal inteiramente vazia, sem herdar a modalidade nominal do input. capabilities() informa símbolos presentes e bloqueios. Contagens, teclas e presença não usam interpretação genérica de transação. Falhas de ciclo/consulta preservam retorno nativo em SitefError.native_status e campos/contexto em SitefError.result, sem incluí-los no repr da exceção. Strings precisam ser representáveis na codificação nativa e sem NUL; limites são em bytes. IPC UTF-8 tem limite2MiB, buffer padrão20000bytes.
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
-```
-
-Há testes de subprocesso real com host sintético próprio, sem DLL de fornecedor, cobrindo Unicode, frames excessivos/truncados, ID errado, timeout, EOF, cancelamento, crash, journal e recuperação. No WSL/Linux, o modo `test_mode=True` permite apenas a finalidade de testes sintéticos. Isso não constitui suporte a runtime Linux.
-
-O script `scripts/smoke_windows.py` aceita `--bridge`, `--library` e `--state-directory` absolutos e executa somente criação/configuração da sessão e consulta de versão. Ele não solicita transação nem operação de pinpad; a biblioteca continua externa ao projeto.
-
-Teste opcional com a ponte Rust real e a fixture C própria do snapshot:
-
-```bash
+# Integração opcional com Rust e biblioteca C próprios:
 cargo build --manifest-path native/Cargo.toml
 PYTHONPATH=src SITEF_TEST_BRIDGE="$PWD/native/target/debug/sitef-bridge" \
   python3 -m unittest discover -s tests -v
 ```
 
-Esses testes comprovam o contrato do componente e do processo auxiliar. Transações reais, pinpad e homologação de cada produto exigem validação adicional.
+O teste ABI opcional aceita SITEF_TEST_BRIDGE e, no Windows, SITEF_TEST_FIXTURE_LIBRARY com SITEF_TEST_OWNED_FIXTURE=1; use exclusivamente DLL compilada de native/tests/fixture.c, nunca a DLL do fornecedor. Testes exercitam subprocesso sintético, Unicode, correlação, frames inválidos, timeout/EOF, formatos, recibos, hooks, múltiplos pagamentos, escopos e recuperação. Linux/WSL test_mode=True é somente fixture de teste. scripts/smoke_windows.py executa apenas load/configuração/capacidades/versão com DLL externa. Isso não homologa pagamento, pinpad ou impressão física. Referências: PDFs VRS-258 e Carteiras Digitais1.43 do kitx86 auditado; nenhum PDFx64 usado.

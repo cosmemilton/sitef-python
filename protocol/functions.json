@@ -1,0 +1,2105 @@
+{
+  "schemaVersion": 1,
+  "metadata": {
+    "reference": "VRS-258 + Carteiras Digitais 1.43",
+    "referenceKitArchitecture": "x86",
+    "supportedRuntime": "Windows x64",
+    "policySemantics": {
+      "financial": "Operação financeira: decisão fiscal explícita para confirmar ou desfazer após sucesso.",
+      "nonfinancial": "Consulta, impressão, manutenção ou leitura sem pagamento; não presumir finalização financeira.",
+      "explicit": "A aplicação precisa declarar política de efeito e confirmação do produto/menu."
+    }
+  },
+  "entries": {
+    "0": {
+      "name": "pagamento_generico",
+      "description": "Pagamento genérico.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "1": {
+      "name": "cheque",
+      "description": "Cheque.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "2": {
+      "name": "debito",
+      "description": "Débito.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "3": {
+      "name": "credito",
+      "description": "Crédito.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "4": {
+      "name": "fininvest",
+      "description": "Fininvest.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "5": {
+      "name": "beneficio",
+      "description": "Benefício.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "6": {
+      "name": "credito_centralizado",
+      "description": "Crédito centralizado.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "7": {
+      "name": "combustivel",
+      "description": "Combustível.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "8": {
+      "name": "parcele_mais_redecard",
+      "description": "Parcele Mais Redecard.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "10": {
+      "name": "refeicao_wappa",
+      "description": "Refeição Wappa.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "11": {
+      "name": "alimentacao_wappa",
+      "description": "Alimentação Wappa.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "12": {
+      "name": "infocard",
+      "description": "Infocard.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "13": {
+      "name": "pay_pass",
+      "description": "Pay Pass.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "15": {
+      "name": "gift_venda",
+      "description": "Gift venda.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "16": {
+      "name": "debito_carne",
+      "description": "Débito carnê.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred",
+      "acceptanceField": 2361,
+      "fallbackHook": "acceptFallback"
+    },
+    "17": {
+      "name": "credito_carne",
+      "description": "Crédito carnê.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred",
+      "acceptanceField": 2363,
+      "fallbackHook": "acceptFallback"
+    },
+    "28": {
+      "name": "ici_card_venda",
+      "description": "ICI Card venda.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "100": {
+      "name": "telemarketing",
+      "description": "Telemarketing.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 21
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "101": {
+      "name": "ici_card_cancelamento",
+      "description": "ICI Card cancelamento.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "110": {
+      "name": "menu_gerencial",
+      "description": "Menu gerencial.",
+      "domain": "administrative-menu",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "administrative-menu",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "111": {
+      "name": "teste_de_comunicacao",
+      "description": "Teste de comunicação.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "112": {
+      "name": "menu_reimpressao",
+      "description": "Menu reimpressão.",
+      "domain": "receipt-reprint",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "receipt-reprint",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "113": {
+      "name": "reimpressao_especifica",
+      "description": "Reimpressão específica.",
+      "domain": "receipt-reprint",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "receipt-reprint",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "114": {
+      "name": "reimpressao_ultima",
+      "description": "Reimpressão última.",
+      "domain": "receipt-reprint",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "receipt-reprint",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "115": {
+      "name": "pre_autorizacao",
+      "description": "Pré-autorização.",
+      "domain": "preauthorization",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "preauthorization",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "116": {
+      "name": "captura_pre_autorizacao",
+      "description": "Captura pré-autorização.",
+      "domain": "preauthorization",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "preauthorization",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "117": {
+      "name": "ajuste_pre_autorizacao",
+      "description": "Ajuste pré-autorização.",
+      "domain": "preauthorization",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "preauthorization",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "118": {
+      "name": "consulta_pre_autorizacao",
+      "description": "Consulta pré-autorização.",
+      "domain": "preauthorization",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "preauthorization",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "122": {
+      "name": "carteira_digital_venda",
+      "description": "Carteira digital venda.",
+      "domain": "wallets",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "123": {
+      "name": "carteira_digital_cancelamento",
+      "description": "Carteira digital cancelamento.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Pix Troco completo requer cancelar separadamente a parcela de venda e a parcela de saque."
+    },
+    "124": {
+      "name": "carteira_digital_saque",
+      "description": "Carteira digital saque.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "125": {
+      "name": "carteira_digital_recarga",
+      "description": "Carteira digital recarga.",
+      "domain": "wallets",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "126": {
+      "name": "carteira_digital_cancelamento_recarga",
+      "description": "Carteira digital cancelamento recarga.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "127": {
+      "name": "carteira_digital_saldo",
+      "description": "Carteira digital saldo.",
+      "domain": "wallets",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "129": {
+      "name": "carteira_digital_cancelamento_saque",
+      "description": "Carteira digital cancelamento saque.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "Carteiras Digitais 1.43",
+        "section": "7-10"
+      },
+      "productClass": "wallets",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Pix Troco completo requer cancelar separadamente a parcela de venda e a parcela de saque."
+    },
+    "130": {
+      "name": "pendencias_do_terminal",
+      "description": "Pendências do terminal.",
+      "domain": "pending-query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "pending-query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "131": {
+      "name": "pendencias_do_documento_fiscal",
+      "description": "Pendências do documento fiscal.",
+      "domain": "pending-query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "pending-query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "150": {
+      "name": "consulta_bonus",
+      "description": "Consulta bônus.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "151": {
+      "name": "saldo_cartao_presente",
+      "description": "Saldo cartão presente.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "152": {
+      "name": "saldo_gift",
+      "description": "Saldo gift.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "160": {
+      "name": "consulta_ems",
+      "description": "Consulta EMS.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "161": {
+      "name": "venda_ems",
+      "description": "Venda EMS.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "200": {
+      "name": "cancelamento",
+      "description": "Cancelamento.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "201": {
+      "name": "cancelamento_telemarketing",
+      "description": "Cancelamento telemarketing.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 22
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "202": {
+      "name": "cancelamento_pre_autorizacao",
+      "description": "Cancelamento pré-autorização.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "203": {
+      "name": "cancelamento_captura_pre_autorizacao",
+      "description": "Cancelamento captura pré-autorização.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "210": {
+      "name": "cancelamento_credito",
+      "description": "Cancelamento crédito.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "211": {
+      "name": "cancelamento_debito",
+      "description": "Cancelamento débito.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "212": {
+      "name": "cancelamento_combustivel",
+      "description": "Cancelamento combustível.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "213": {
+      "name": "cancelamento_gift",
+      "description": "Cancelamento gift.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "250": {
+      "name": "cancelamento_consulta_bonus",
+      "description": "Cancelamento consulta bônus.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "251": {
+      "name": "cancelamento_recarga_presente",
+      "description": "Cancelamento recarga presente.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "253": {
+      "name": "cancelamento_acumulo_bonus",
+      "description": "Cancelamento acúmulo bônus.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "254": {
+      "name": "resgate_bonus",
+      "description": "Resgate bônus.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "255": {
+      "name": "cancelamento_resgate_bonus",
+      "description": "Cancelamento resgate bônus.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "256": {
+      "name": "acumulo_bonus",
+      "description": "Acúmulo bônus.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "257": {
+      "name": "cancelamento_recarga_gift",
+      "description": "Cancelamento recarga gift.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "264": {
+      "name": "recarga_gift",
+      "description": "Recarga gift.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "265": {
+      "name": "ativacao_gift_com_pagamento_vinculado",
+      "description": "Ativação gift com pagamento vinculado.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "266": {
+      "name": "consulta_gift",
+      "description": "Consulta gift.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "267": {
+      "name": "ativacao_gift_sem_pagamento",
+      "description": "Ativação gift sem pagamento.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "268": {
+      "name": "ativacao_gift_com_pagamento",
+      "description": "Ativação gift com pagamento.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "269": {
+      "name": "ativacao_gift_desvinculada",
+      "description": "Ativação gift desvinculada.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "310": {
+      "name": "pagamento_de_contas",
+      "description": "Pagamento de contas.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "311": {
+      "name": "pagamento_de_contas_com_saque",
+      "description": "Pagamento de contas com saque.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 23
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "312": {
+      "name": "consulta_desvinculada",
+      "description": "Consulta desvinculada.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "313": {
+      "name": "pagamento_desvinculado",
+      "description": "Pagamento desvinculado.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "314": {
+      "name": "recarga_corban_se_com_saque",
+      "description": "Recarga Corban SE com saque.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "315": {
+      "name": "saque_para_pagamento",
+      "description": "Saque para pagamento.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "316": {
+      "name": "cancelamento_pagamento_desvinculado",
+      "description": "Cancelamento pagamento desvinculado.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "317": {
+      "name": "limites_correspondente",
+      "description": "Limites correspondente.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "318": {
+      "name": "recarga_bradesco",
+      "description": "Recarga Bradesco.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "319": {
+      "name": "recarga_bradesco_desvinculada",
+      "description": "Recarga Bradesco desvinculada.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "320": {
+      "name": "recarga_corban_se",
+      "description": "Recarga Corban SE.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "321": {
+      "name": "recarga_corban_se_desvinculada",
+      "description": "Recarga Corban SE desvinculada.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "322": {
+      "name": "deposito_identificado",
+      "description": "Depósito identificado.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "323": {
+      "name": "transferencia",
+      "description": "Transferência.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "324": {
+      "name": "pague_facil",
+      "description": "Pague Fácil.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "325": {
+      "name": "revalidacao_senha_inss",
+      "description": "Revalidação senha INSS.",
+      "domain": "corban",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "corban",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Conservar a ordem dos documentos e imprimir comprovantes durante o laço."
+    },
+    "330": {
+      "name": "compre_e_saque",
+      "description": "Compre e saque.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "350": {
+      "name": "venda_produto_sem_valor",
+      "description": "Venda produto sem valor.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "351": {
+      "name": "cancelamento_produto_sem_valor",
+      "description": "Cancelamento produto sem valor.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "400": {
+      "name": "vale_gas",
+      "description": "Vale gás.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "401": {
+      "name": "validacao_vale_gas",
+      "description": "Validação vale gás.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "410": {
+      "name": "troco_surpresa",
+      "description": "Troco surpresa.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 24
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "422": {
+      "name": "adesao_seguro",
+      "description": "Adesão seguro.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "430": {
+      "name": "leitura_segura_de_cartao",
+      "description": "Leitura segura de cartão.",
+      "domain": "secure-card-read",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "secure-card-read",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "431": {
+      "name": "leitura_chip_interativa",
+      "description": "Leitura chip interativa.",
+      "domain": "secure-card-read",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "secure-card-read",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "500": {
+      "name": "consulta_acsp",
+      "description": "Consulta ACSP.",
+      "domain": "credit-reference-query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "credit-reference-query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "501": {
+      "name": "consulta_serasa",
+      "description": "Consulta Serasa.",
+      "domain": "credit-reference-query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "credit-reference-query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "600": {
+      "name": "consulta_saldo",
+      "description": "Consulta saldo.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "601": {
+      "name": "saldo_debito",
+      "description": "Saldo débito.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "602": {
+      "name": "saldo_credito",
+      "description": "Saldo crédito.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "625": {
+      "name": "voucher_com_coleta",
+      "description": "Voucher com coleta.",
+      "domain": "voucher",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "voucher",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "626": {
+      "name": "fornecedores_e_produtos",
+      "description": "Fornecedores e produtos.",
+      "domain": "voucher",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "voucher",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "627": {
+      "name": "voucher_sem_coleta",
+      "description": "Voucher sem coleta.",
+      "domain": "voucher",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "voucher",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "628": {
+      "name": "cancelamento_voucher",
+      "description": "Cancelamento voucher.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "657": {
+      "name": "saque_credito_transferencia",
+      "description": "Saque crédito transferência.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "658": {
+      "name": "saque_credito",
+      "description": "Saque crédito.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "660": {
+      "name": "menu_saque_ibi",
+      "description": "Menu saque IBI.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "661": {
+      "name": "consulta_saque_ibi",
+      "description": "Consulta saque IBI.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "662": {
+      "name": "saque_ibi",
+      "description": "Saque IBI.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 25
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "663": {
+      "name": "saque_getnet",
+      "description": "Saque GetNet.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "664": {
+      "name": "cancelamento_saque_getnet",
+      "description": "Cancelamento saque GetNet.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "665": {
+      "name": "resgate_pontos",
+      "description": "Resgate pontos.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "667": {
+      "name": "emissao_pontos",
+      "description": "Emissão pontos.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "668": {
+      "name": "cancelamento_emissao_pontos",
+      "description": "Cancelamento emissão pontos.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "immediate",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "669": {
+      "name": "carga_pre_pago",
+      "description": "Carga pré-pago.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "670": {
+      "name": "cancelamento_carga_pre_pago",
+      "description": "Cancelamento carga pré-pago.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "671": {
+      "name": "consulta_saque_ibi_com_saque",
+      "description": "Consulta saque IBI com saque.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "672": {
+      "name": "cancelamento_saque_ibi",
+      "description": "Cancelamento saque IBI.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "680": {
+      "name": "saldo_pre_pago",
+      "description": "Saldo pré-pago.",
+      "domain": "loyalty-prepaid",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "loyalty-prepaid",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "698": {
+      "name": "saque_debito",
+      "description": "Saque débito.",
+      "domain": "withdrawal",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "withdrawal",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "700": {
+      "name": "oi_paggo_venda",
+      "description": "Oi Paggo venda.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "701": {
+      "name": "oi_paggo_cancelamento",
+      "description": "Oi Paggo cancelamento.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "702": {
+      "name": "pagamento_de_contas",
+      "description": "Pagamento de contas.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "703": {
+      "name": "cancelamento_pagamento_beneficio",
+      "description": "Cancelamento pagamento benefício.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "705": {
+      "name": "pagamento_fatura",
+      "description": "Pagamento fatura.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "740": {
+      "name": "consulta_parcelas_credito_administradora",
+      "description": "Consulta parcelas crédito administradora.",
+      "domain": "query",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 26
+      },
+      "productClass": "query",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "770": {
+      "name": "carga_tabelas_pinpad",
+      "description": "Carga tabelas pinpad.",
+      "domain": "pinpad-maintenance",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "pinpad-maintenance",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "771": {
+      "name": "carga_forcada_local",
+      "description": "Carga forçada local.",
+      "domain": "pinpad-maintenance",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "pinpad-maintenance",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "772": {
+      "name": "carga_forcada_sitef",
+      "description": "Carga forçada SiTef.",
+      "domain": "pinpad-maintenance",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "pinpad-maintenance",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "775": {
+      "name": "informacoes_pinpad",
+      "description": "Informações pinpad.",
+      "domain": "pinpad-maintenance",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "pinpad-maintenance",
+      "finalizationPolicy": "nonfinancial",
+      "receiptPolicy": "immediate"
+    },
+    "899": {
+      "name": "recarga_credito",
+      "description": "Recarga crédito.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "900": {
+      "name": "cancelamento_recarga_credito",
+      "description": "Cancelamento recarga crédito.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "913": {
+      "name": "alteracao_pre_autorizacao",
+      "description": "Alteração pré-autorização.",
+      "domain": "preauthorization",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "preauthorization",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "928": {
+      "name": "cancelamento_debito_carne_rede_forcada",
+      "description": "Cancelamento débito carnê rede forçada.",
+      "domain": "cancellation",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "cancellation",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "immediate"
+    },
+    "943": {
+      "name": "pagamento_de_fatura_sem_fatura_vinculado",
+      "description": "Pagamento de fatura sem fatura vinculado.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "944": {
+      "name": "pagamento_de_fatura_sem_fatura_desvinculado",
+      "description": "Pagamento de fatura sem fatura desvinculado.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "financial",
+      "receiptPolicy": "deferred"
+    },
+    "999": {
+      "name": "fechamento",
+      "description": "Fechamento.",
+      "domain": "payment-or-product-service",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "payment-or-product-service",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    },
+    "1000": {
+      "name": "voucher_papel",
+      "description": "Voucher papel.",
+      "domain": "voucher",
+      "origin": {
+        "document": "VRS-258",
+        "section": "5.2.2",
+        "page": 27
+      },
+      "productClass": "voucher",
+      "finalizationPolicy": "explicit",
+      "receiptPolicy": "deferred",
+      "requiredHook": "validateTransaction",
+      "notes": "Menu ou produto com efeitos/fechamento não detalhados na tabela geral; a aplicação declara a política antes de iniciar."
+    }
+  },
+  "rules": {
+    "unknownFunction": {
+      "finalizationPolicy": "explicit",
+      "requiredHook": "validateTransaction",
+      "rawIntegerCodeAllowed": true
+    },
+    "financialDecisionNeverAutomatic": true,
+    "receiptPolicyMayBeRefinedByExplicitProductConfiguration": true,
+    "multiplePayments": {
+      "groupKey": [
+        "fiscalDocument",
+        "fiscalDate"
+      ],
+      "sameDateSamePurchaseUsesSameDocument": true,
+      "newDateMayUseDifferentDocument": true,
+      "useOriginalTimeForEachGroup": true,
+      "finalizeEachDateDocumentGroupSeparately": true,
+      "failedAttemptDoesNotUndoEarlierApprovedPayments": true,
+      "confirmOnlyAfterCompleteFiscalPurchase": true,
+      "failedPurchaseRequiresNonconfirmationForAllPendingGroups": true,
+      "verifyNoPendingGroupsRemain": true
+    },
+    "nfPag": {
+      "maximumField": 730,
+      "zeroMaximumMeansUnlimited": true,
+      "typeField": 731,
+      "requirementsField": 732,
+      "requirementsBelongToLastType": true,
+      "mandatoryWhenAdvertised": false,
+      "paymentTypes": {
+        "00": "dinheiro",
+        "01": "cheque",
+        "02": "TEF débito",
+        "03": "TEF crédito",
+        "04": "presente Carrefour",
+        "05": "bônus Carrefour",
+        "06": "cartão Carrefour",
+        "07": "saque destinado a pagamento",
+        "08": "saque",
+        "09": "DCC Carrefour",
+        "10": "ticket eletrônico",
+        "11": "ticket papel",
+        "12": "carteira digital",
+        "13": "Pix",
+        "50": "TEF cartão",
+        "77": "reservado",
+        "98": "sem pagamento",
+        "99": "outros meios"
+      },
+      "requirements": {
+        "00": {
+          "name": "reservado",
+          "collect": false
+        },
+        "01": {
+          "name": "origemCheque",
+          "collect": true,
+          "choices": {
+            "0": "read-cmc7",
+            "1": "manual-first-line",
+            "2": "typed-cmc7"
+          },
+          "differentFromCommand31Prefixes": true
+        },
+        "02": {
+          "name": "dadosCheque",
+          "collect": true,
+          "manualFirstLineDigits": 29
+        },
+        "03": {
+          "name": "redeDestino",
+          "collect": true,
+          "sourceField": 131
+        },
+        "04": {
+          "name": "nsuSitef",
+          "collect": true,
+          "sourceField": 133
+        },
+        "05": {
+          "name": "dataSitef",
+          "collect": false,
+          "reservedForFutureUse": true
+        },
+        "06": {
+          "name": "empresaSitef",
+          "collect": true,
+          "resolverRequired": true
+        },
+        "07": {
+          "name": "nsuHost",
+          "collect": true,
+          "sourceField": 134
+        },
+        "08": {
+          "name": "dataHost",
+          "collect": true,
+          "sourceField": 105,
+          "sourcePattern": "YYYYMMDDHHMMSS",
+          "outputPattern": "DDMMYYYY"
+        },
+        "09": {
+          "name": "estabelecimento",
+          "collect": true,
+          "sourceField": 157
+        },
+        "10": {
+          "name": "servicoZ",
+          "collect": true,
+          "sourceField": 1,
+          "transform": "first-semicolon-separated-part"
+        },
+        "11": {
+          "name": "autorizacaoHost",
+          "collect": true,
+          "sourceField": 135
+        },
+        "12": {
+          "name": "valorTotalCheque",
+          "collect": true,
+          "resolverRequired": true
+        },
+        "13": {
+          "name": "redesPermitidas",
+          "collect": false,
+          "restrictsRequirement": "03",
+          "syntax": "13(rede1,rede2,...)",
+          "emitInNfPag": false
+        },
+        "14": {
+          "name": "bandeiraCartao",
+          "collect": true,
+          "resolverRequired": true
+        },
+        "15": {
+          "name": "condicaoPagamento",
+          "collect": true,
+          "choices": {
+            "00": "a vista",
+            "01": "pre-datado",
+            "02": "parcelado pelo lojista",
+            "03": "parcelado pela administradora"
+          }
+        },
+        "16": {
+          "name": "carteiraDigital",
+          "collect": true,
+          "sourceField": 106
+        }
+      },
+      "format": "Tipo:Valor[:ID:Dado-ID:Dado...];",
+      "entrySeparator": ";",
+      "dataSeparator": "-",
+      "pairSeparator": ":",
+      "trailingEntrySeparatorRequired": true,
+      "amountFormat": {
+        "kind": "minor-units",
+        "scale": 2
+      },
+      "sumMustMatchApplicationTransactionTotal": true,
+      "builderHook": "paymentData",
+      "confirmationScope": "all-payments-of-fiscal-document-and-date",
+      "paymentIndexParameter": "NumeroPagamentoNFPAG",
+      "mutuallyExclusiveWith": [
+        "NumeroPagamentoCupom",
+        "RedeConfirmacao"
+      ],
+      "reservedSeparatorsNeedApplicationHandling": true
+    },
+    "pendingQuery": {
+      "allTerminalFunction": 130,
+      "oneDocumentFunction": 131,
+      "countField": 210,
+      "recordFields": [
+        160,
+        161,
+        163,
+        164,
+        211,
+        1319
+      ],
+      "countFunction": "ObtemQuantidadeTransacoesPendentes",
+      "notFoundReturn": -13,
+      "positiveReturnIsCount": true
+    },
+    "carnetFallback": {
+      "16": {
+        "acceptanceField": 2361
+      },
+      "17": {
+        "acceptanceField": 2363
+      },
+      "acceptedValue": "1",
+      "missingOrZeroIsConventionalTef": true,
+      "requiredHook": "acceptFallback",
+      "phase": "beforeFinalize"
+    }
+  },
+  "coverage": {
+    "baseFunctionCount": 124,
+    "baseFunctionIds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      17,
+      28,
+      100,
+      101,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      130,
+      131,
+      150,
+      151,
+      152,
+      160,
+      161,
+      200,
+      201,
+      202,
+      203,
+      210,
+      211,
+      212,
+      213,
+      250,
+      251,
+      253,
+      254,
+      255,
+      256,
+      257,
+      264,
+      265,
+      266,
+      267,
+      268,
+      269,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319,
+      320,
+      321,
+      322,
+      323,
+      324,
+      325,
+      330,
+      350,
+      351,
+      400,
+      401,
+      410,
+      422,
+      430,
+      431,
+      500,
+      501,
+      600,
+      601,
+      602,
+      625,
+      626,
+      627,
+      628,
+      657,
+      658,
+      660,
+      661,
+      662,
+      663,
+      664,
+      665,
+      667,
+      668,
+      669,
+      670,
+      671,
+      672,
+      680,
+      698,
+      700,
+      701,
+      702,
+      703,
+      705,
+      740,
+      770,
+      771,
+      772,
+      775,
+      899,
+      900,
+      913,
+      928,
+      943,
+      944,
+      999,
+      1000
+    ],
+    "walletFunctionCount": 7,
+    "functionCount": 131,
+    "allBaseFunctionIdsPresent": true,
+    "allProductWorkflowsHomologated": false
+  }
+}

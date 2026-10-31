@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CliSiTef shared function policies",
+  "type": "object",
+  "required": ["schemaVersion", "entries", "rules", "coverage"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "metadata": {"type": "object"},
+    "entries": {
+      "type": "object",
+      "propertyNames": {"pattern": "^-?[0-9]+$"},
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "description", "domain", "origin", "finalizationPolicy", "receiptPolicy"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "domain": {"type": "string", "minLength": 1},
+          "origin": {"type": "object"},
+          "productClass": {"type": "string"},
+          "finalizationPolicy": {"enum": ["financial", "nonfinancial", "explicit"]},
+          "receiptPolicy": {"enum": ["immediate", "deferred"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "rules": {"type": "object"},
+    "coverage": {"type": "object"}
+  },
+  "additionalProperties": true
+}

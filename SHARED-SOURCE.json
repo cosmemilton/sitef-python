@@ -1,6 +1,7 @@
 {
   "canonicalRepository": "https://github.com/cosmemilton/sitef-node",
-  "canonicalCommit": "cb6a7be563be485195ef8fa0c4fac2e5bc65721d",
+  "canonicalCommit": "c202db0e7b65f61bbb80968dd8221ddb9387a4bb",
+  "sdkSemanticVersion": "0.2.0",
   "bridgeProtocolVersion": 1,
   "vendorBinariesIncluded": false,
   "files": {
@@ -14,6 +15,12 @@
     "native/tests/smoke.py": "b42bf1faccbb93f9b18dba315e401903c2d13fa340bf71d6710760d4d052b6a7",
     "native/tests/smoke_tcp.py": "50409dced7c4ed5483ef28cc4c391666288395942357d43f514b65537f40a888",
     "protocol/catalog.json": "39b0859434e8c9d5cb4fa4452456c86395ae473af7041d6ccc377fe25ded79ab",
+    "protocol/coverage-audit.json": "b6669150c9643f3c27c9a71e9adb74643d011367536a31cfd81fdb47b56b1e40",
+    "protocol/fields.json": "d50aa4656efc1f0ea458c153cc064310230007479cdd789b373415aa8c485a68",
+    "protocol/fields.schema.json": "be7922aa083a48b7a43df5b0ee11c1f92b8426161e54988fd8a7b4a1f472faa3",
+    "protocol/functions.json": "ec2988b6cd1ead2d4b944fe1690d5ac93cdad6f8417d5d12260119d1df0a06e2",
+    "protocol/functions.schema.json": "0b5f708503f27525b31718677f866024d17cd3affeaafd903058678d9f8a3bd1",
+    "protocol/semantic-data.md": "d3f7f0b65e6c6256b38d8328ee000cf4588a6f8d92831d3714adec691b4334b2",
     "scripts/build-windows-x64.sh": "262b12d7a01944469dfb73c88d3fae8e8f78b668e6ffa0d16701f8062a290387"
   }
 }

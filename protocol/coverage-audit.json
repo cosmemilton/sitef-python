@@ -1,0 +1,34 @@
+{
+  "source": "fresh pypdf extraction of previously supplied x86 PDFs; no x64 PDF read",
+  "baseFields": 444,
+  "perPageCounts": {
+    "37": 4,
+    "38": 11,
+    "39": 23,
+    "40": 35,
+    "41": 39,
+    "42": 34,
+    "43": 36,
+    "44": 26,
+    "45": 24,
+    "46": 37,
+    "47": 38,
+    "48": 38,
+    "49": 27,
+    "50": 23,
+    "51": 38,
+    "52": 11
+  },
+  "baseRanges": 3,
+  "events": 64,
+  "walletTableFields": 36,
+  "baseFunctions": 124,
+  "functionEntries": 131,
+  "fieldEntries": 536,
+  "missingSourceIds": [],
+  "sha256": {
+    "fields.json": "d50aa4656efc1f0ea458c153cc064310230007479cdd789b373415aa8c485a68",
+    "functions.json": "ec2988b6cd1ead2d4b944fe1690d5ac93cdad6f8417d5d12260119d1df0a06e2"
+  },
+  "hashConvention": "SHA-256 of UTF-8 source with LF newlines"
+}
